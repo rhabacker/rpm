@@ -695,7 +695,7 @@ grabArgs(MacroBuf mb, const rpmMacroEntry me, const char * se,
 {
     const char *cont = NULL;
     const char *opts;
-    char *args = NULL;
+    char *args = NULL, *fill = " ";
     ARGV_t argv = NULL;
     int argc = 0;
     int c;
@@ -764,9 +764,12 @@ grabArgs(MacroBuf mb, const rpmMacroEntry me, const char * se,
 	    goto exit;
 	}
 
+	if (optind > 1 && argv[optind-1] && argv[optind-1][0] == '-') {
+		fill = "";
+	}
 	rasprintf(&name, "-%c", c);
 	if (optarg) {
-	    rasprintf(&body, "-%c %s", c, optarg);
+	    rasprintf(&body, "-%c%s%s", c, fill, optarg);
 	} else {
 	    rasprintf(&body, "-%c", c);
 	}
