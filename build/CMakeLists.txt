@@ -1,4 +1,4 @@
-add_library(librpmbuild SHARED)
+add_library(librpmbuild)
 set_target_properties(librpmbuild PROPERTIES
 	VERSION ${RPM_LIBVERSION}
 	SOVERSION ${RPM_SOVERSION}

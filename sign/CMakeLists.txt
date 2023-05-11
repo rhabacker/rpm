@@ -1,4 +1,4 @@
-add_library(librpmsign SHARED)
+add_library(librpmsign)
 set_target_properties(librpmsign PROPERTIES
 	VERSION ${RPM_LIBVERSION}
 	SOVERSION ${RPM_SOVERSION}

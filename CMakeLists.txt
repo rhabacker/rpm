@@ -8,6 +8,8 @@ project(rpm
 )
 
 # user configurable stuff
+option(BUILD_SHARED_LIBS "enable shared build" ON)
+
 option(ENABLE_NLS "Enable native language support" ON)
 option(ENABLE_OPENMP "Enable OpenMP threading support" ON)
 option(ENABLE_PYTHON "Enable Python bindings" ON)

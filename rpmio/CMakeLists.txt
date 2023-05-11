@@ -1,4 +1,4 @@
-add_library(librpmio SHARED)
+add_library(librpmio)
 
 target_sources(librpmio PRIVATE
 	argv.c base64.c digest.c expression.c macro.c rpmhook.h rpmhook.c
