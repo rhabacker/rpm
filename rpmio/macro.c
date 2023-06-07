@@ -990,9 +990,12 @@ void splitQuoted(ARGV_t *av, const char * str, const char * seps)
     const char *s = str;
     const char *start = str;
     int quoted = 0;
+    int inquote = 0;
 
     while (start != NULL) {
-	if (!quoted && strchr(seps, *s)) {
+	if (!quoted && ((!inquote && strchr(seps, *s)) || (inquote && (*s == '"' || *s == '\'')))) {
+	    if (inquote)
+		s++;
 	    size_t slen = s - start;
 	    /* quoted arguments are always kept, otherwise skip empty args */
 	    if (slen > 0) {
@@ -1007,7 +1010,11 @@ void splitQuoted(ARGV_t *av, const char * str, const char * seps)
 		argvAdd(av, arg);
 	    }
 	    start = s + 1;
+	    if (inquote)
+		inquote = 0;
 	}
+	if (!inquote && (*s == '"' || *s == '\''))
+	    inquote = 1;
 	if (*s == qchar)
 	    quoted = !quoted;
 	else if (*s == '\0')
