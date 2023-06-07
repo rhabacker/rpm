@@ -404,6 +404,7 @@ foreach(f macros rpmrc rpmpopt-${PROJECT_VERSION})
 endforeach()
 
 if (ENABLE_TESTSUITE)
+	enable_testing()
 	find_program(AUTOM4TE autom4te REQUIRED)
 	find_program(FAKECHROOT fakechroot REQUIRED)
 	add_subdirectory(tests)

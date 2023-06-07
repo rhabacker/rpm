@@ -66,11 +66,21 @@ add_custom_target(populate_testing COMMAND
 	DEPENDS ${top_targets}
 )
 
-set (testprogs rpmpgpcheck rpmpgppubkeyfingerprint)
+set (testprogs rpmpgpcheck rpmpgppubkeyfingerprint splitquoted)
 foreach(prg ${testprogs})
 	add_executable(${prg} EXCLUDE_FROM_ALL ${prg}.c)
 	target_link_libraries(${prg} PRIVATE librpmio)
 endforeach()
+
+target_sources(splitquoted PRIVATE
+	../rpmio/macro.c
+	../rpmio/rgetopt.c
+)
+target_link_libraries(splitquoted PRIVATE pthread)
+
+if(ENABLE_TESTSUITE)
+    add_test(NAME splitquoted COMMAND splitquoted)
+endif()
 
 include(ProcessorCount)
 ProcessorCount(nproc)
