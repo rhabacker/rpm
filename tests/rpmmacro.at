@@ -236,6 +236,18 @@ runroot rpm \
 ])
 AT_CLEANUP
 
+AT_SETUP([parametrized macro 9])
+AT_KEYWORDS([macros])
+AT_CHECK([
+runroot rpm \
+    --define '%foo(b:c) %{-b**}' \
+    --eval "%foo 5 a -b\"2\" -b\"d=1 e=3\" -c -b'd=1 e=4' -b 'e=2 f=3'"
+],
+[0],
+[-b"2" -b"d=1 e=3" -b'd=1 e=4' -b 'e=2 f=3'
+])
+AT_CLEANUP
+
 AT_SETUP([uncompress macro 1])
 AT_KEYWORDS([macros])
 AT_CHECK([
